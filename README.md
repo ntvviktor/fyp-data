@@ -2,7 +2,7 @@
 
 I use [puppeeter](https://devdocs.io/puppeteer/) and [brightdata](https://brightdata.com) to scrape data.
 
-Go to this [youtube channel](https://www.youtube.com/watch?v=qo_fUjb02ns) to claim $10 dollar for scraping data and see its tutorial.
+Go to this [youtube channel](https://www.youtube.com/watch?v=qo_fUjb02ns) to claim $10 dollar for scraping data and see the tutorial.
 
 Feel free to change and commit
 
