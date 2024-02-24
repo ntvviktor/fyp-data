@@ -5,7 +5,7 @@ import { delay, write2json } from "./utils.js";
 
 const customerNanoID = customAlphabet("0123456789abcde");
 
-const AUTH = "brd-customer-hl_d5e3d0ef-zone-scraping_browser1:3mjs2kh5wahc";
+const AUTH = "YOUR-ID:PASSWORD";
 const SBR_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;
 
 async function run() {
