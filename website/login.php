@@ -2,13 +2,19 @@
 include 'db.php';
 include 'class/user.php';
 
+// Initialize error message variable
+$error = "";
+
 // Login logic
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = new User($conn);
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $user->login($username, $password);
+    // Attempt to log in
+    if (!$user->login($username, $password)) {
+        $error = "Invalid username or password.";
+    }
 
     $conn->close();
 }
@@ -48,6 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
+                <?php if (!empty($error)) { ?>
+                    <div class="error"><?php echo $error; ?></div>
+                <?php } ?>
                 <button type="submit">Login</button>
             </form>
         </div>

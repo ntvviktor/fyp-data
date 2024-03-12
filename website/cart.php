@@ -1,4 +1,10 @@
 <?php
+// Start the session
+session_start();
+
+// Check if the user is logged in
+$isLoggedIn = isset($_SESSION['username']);
+
 // Check if the cart is empty
 $cartIsEmpty = true; // Assume cart is empty initially
 $totalPrice = 0; // Initialize total price
@@ -28,10 +34,17 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             <h1>JunZ</h1>
             <nav>
                 <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="signup.php">Sign Up</a></li>
-                    <li><a href="cart.php">Cart</a></li>
+                    <?php if ($isLoggedIn) { ?>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="profile.php"><?php echo $_SESSION['username']; ?></a></li>
+                        <li><a href="signout.php">Sign Out</a></li>
+                        <li><a href="cart.php">Cart</a></li>
+                    <?php } else { ?>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="signup.php">Sign Up</a></li>
+                        <li><a href="cart.php">Cart</a></li>
+                    <?php } ?>
                 </ul>
             </nav>
         </div>
