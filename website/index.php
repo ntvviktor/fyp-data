@@ -1,8 +1,33 @@
 <?php
 session_start(); // Start session
 
+// Include the db.php file to reuse the database connection
+include_once 'db.php';
+
 // Check if the user is logged in
 $isLoggedIn = isset($_SESSION['username']);
+
+// Define arrays for most viewed products and products on sale
+$most_viewed_products = array();
+$on_sale_products = array();
+
+// Define the range of product IDs for most viewed products and products on sale
+$most_viewed_product_range = range(1, 20);
+$on_sale_product_range = range(21, 30);
+
+// Retrieve most viewed products from the database based on their IDs
+foreach ($most_viewed_product_range as $id) {
+    $sql_most_viewed = "SELECT * FROM product WHERE id = $id";
+    $result_most_viewed = mysqli_query($conn, $sql_most_viewed);
+    $most_viewed_products[] = mysqli_fetch_assoc($result_most_viewed);
+}
+
+// Retrieve products on sale from the database based on their IDs
+foreach ($on_sale_product_range as $id) {
+    $sql_on_sale = "SELECT * FROM product WHERE id = $id";
+    $result_on_sale = mysqli_query($conn, $sql_on_sale);
+    $on_sale_products[] = mysqli_fetch_assoc($result_on_sale);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,36 +87,27 @@ $isLoggedIn = isset($_SESSION['username']);
 <!-- Main Content -->
 <main>
     <div class="container">
-        <div class="search-bar">
-        <form action="search.php" method="GET">
-            <input type="text" name="search" placeholder="Search..."/>
-            <ul id="category-list">
-                <li><button type="submit" name="category" value="option1">All Categories</button></li>
-                <li><button type="submit" name="category" value="option2">Option 2</button></li>
-                <li><button type="submit" name="category" value="option3">Option 3</button></li>
-                <li><button type="submit" name="category" value="option4">Option 4</button></li>
-            </ul>
-        </form>
-    </div>
-
-        </div>
-        <br/>
+        <!-- Search bar -->
         <!-- Product Grid -->
+        
         <!-- Most Viewed Products -->
         <h2>Most Viewed Products</h2>
         <section class="scroll-container">
             <div class="most-viewed">
-                <!-- Product items here -->
-                <?php for ($i = 1; $i <= 20; $i++) { ?>
+                <!-- Display most viewed products -->
+                <?php foreach ($most_viewed_products as $product) { ?>
                     <div class="product">
-                        <img src="product<?php echo $i; ?>.jpg" alt="Product <?php echo $i; ?>"/>
-                        <h2>Product <?php echo $i; ?></h2>
-                        <p>$19.99</p>
+                        <?php
+                        // Dynamically generate image path based on product name
+                        $product_image_path = 'path/to/images/' . strtolower(str_replace(' ', '_', $product['name'])) . '.jpg';
+                        ?>
+                        <img src="<?php echo $product_image_path; ?>" alt="<?php echo $product['name']; ?>">
+                        <h2><?php echo substr($product['name'], 0, 20); // Limit to first 20 characters ?></h2>
+                        <p><?php echo $product['price']; ?></p>
                         <a href="product.php"><button>View Product</button></a>
                         <button>Add to Cart</button>
                     </div>
                 <?php } ?>
-                <!-- Add more products here -->
             </div>
         </section>
 
@@ -99,23 +115,28 @@ $isLoggedIn = isset($_SESSION['username']);
         <h2>On Sale Now</h2>
         <section class="scroll-container">
             <div class="on-sale">
-                <!-- Product items here -->
-                <?php for ($i = 21; $i <= 30; $i++) { ?>
+                <!-- Display products on sale -->
+                <?php foreach ($on_sale_products as $product) { ?>
                     <div class="product">
-                        <img src="product<?php echo $i; ?>.jpg" alt="Product <?php echo $i; ?>"/>
-                        <h2>Product <?php echo $i; ?></h2>
-                        <p>$19.99</p>
+                        <?php
+                        // Dynamically generate image path based on product name
+                        $product_image_path = 'path/to/images/' . strtolower(str_replace(' ', '_', $product['name'])) . '.jpg';
+                        ?>
+                        <img src="<?php echo $product_image_path; ?>" alt="<?php echo $product['name']; ?>">
+                        <h2><?php echo substr($product['name'], 0, 20); // Limit to first 20 characters ?></h2>
+                        <p><?php echo $product['price']; ?></p>
                         <a href="product.php"><button>View Product</button></a>
                         <button>Add to Cart</button>
                     </div>
                 <?php } ?>
-                <!-- Add more products here -->
             </div>
         </section>
 
-        <!-- Last Purchase Highlights -->
+        
+        <!-- Recent Purchase Highlights -->
         <h2>Recent Purchase</h2>
         <section class="scroll-container">
+            <!-- Display recent purchase highlights -->
             <div class="last-purchase">
                 <?php
                 // Assuming $recent_purchase is an array of purchased products
@@ -142,7 +163,6 @@ $isLoggedIn = isset($_SESSION['username']);
         </section>
     </div>
 </main>
-
 <!-- Footer -->
 <footer>
     <div class="container">

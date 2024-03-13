@@ -31,7 +31,7 @@ $conn->close();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shopping Cart</title>
-    <link rel="stylesheet" href="css/cart.css" />
+    <link rel="stylesheet" href="css/product.css" />
 </head>
 <body>
     <header>
@@ -65,7 +65,7 @@ $conn->close();
                             <img src="<?php echo $product['image_url']; ?>" alt="<?php echo $product['name']; ?>" />
                             <h3><?php echo $product['name']; ?></h3>
                             <p>Price: $<?php echo $product['price']; ?></p>
-                            <p><?php echo $product['description']; ?></p>
+                            <p><?php echo $product['author']; ?></p>
                             <button>Add to Cart</button>
                         </div>
                     <?php endforeach; ?>
