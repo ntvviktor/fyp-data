@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2024 at 03:36 PM
+-- Generation Time: Mar 15, 2024 at 08:10 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -193,6 +193,14 @@ CREATE TABLE `user_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `user_details`
+--
+
+INSERT INTO `user_details` (`id`, `username`, `age`, `gender`, `occupation`, `genre`) VALUES
+(2, 'jr', 18, 'male', 'doctor', 'Romance'),
+(3, 'wj', NULL, NULL, NULL, NULL);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -248,7 +256,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_details`
 --
 ALTER TABLE `user_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
