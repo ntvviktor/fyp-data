@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2024 at 10:58 AM
+-- Generation Time: Mar 15, 2024 at 01:18 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -172,7 +172,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `full_name`) VALUES
-(1, 'wj', '$2y$10$7cAyvKlbAtOoFE6BMP1p0e2JMlord3UG8h7N6fsd5a2Ad86rckunK', 'weijie@gmail.com', 'Wei Jie');
+(1, 'wj', '$2y$10$7cAyvKlbAtOoFE6BMP1p0e2JMlord3UG8h7N6fsd5a2Ad86rckunK', 'weijie@gmail.com', 'Wei Jie'),
+(2, 'admin', '$2y$10$741kz7xiybY7v4uLjF0fa.ZTWm.XZaZ6OMo4rAp5a8er5zyBGW8dq', 'admin@gmail.com', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -218,7 +219,7 @@ ALTER TABLE `shopping_cart`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
