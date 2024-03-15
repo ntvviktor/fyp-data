@@ -67,7 +67,7 @@ foreach ($on_sale_product_range as $id) {
 <body>
 <header>
     <div class="container">
-        <h1>Booklicious</h1>
+        <h1>Otaku Oasis</h1>
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
