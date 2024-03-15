@@ -29,8 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newPassword = htmlspecialchars($_POST['password']);
     $newFullName = htmlspecialchars($_POST['full_name']);
 
+    // Hash the new password
+    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
     // Update user profile
-    $updateResult = $user->updateUserProfile($username, $newUsername, $newPassword, $newFullName);
+    $updateResult = $user->updateUserProfile($username, $newUsername, $hashedPassword, $newFullName);
 
     // If update was successful, refresh user data and set notification
     if ($updateResult) {
@@ -62,7 +65,7 @@ $conn->close();
                     <li><a href="login.php">Login</a></li>
                     <li><a href="signup.php">Sign Up</a></li>
                 <?php } else { ?>
-                    <li><a href="profile.php"><?php echo $_SESSION['username']; ?></a></li>
+                    <li><a href="viewprofile.php"><?php echo $_SESSION['username']; ?></a></li>
                     <li><a href="signout.php">Sign Out</a></li>
                 <?php } ?>
                 <li><a href="cart.php">Cart</a></li>
@@ -81,18 +84,15 @@ $conn->close();
 
 <!-- Display user information -->
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" value="<?php echo $userData['username']; ?>" required><br><br>
 
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="<?php echo $userData['email']; ?>" readonly><br><br>
+    <input type="email" id="email" name="email" value="<?php echo $userData['email']; ?>" required><br><br>
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required><br><br>
 
     <label for="full_name">Full Name:</label>
     <input type="text" id="full_name" name="full_name" value="<?php echo $userData['full_name']; ?>" required><br><br>
-
     <input type="submit" value="Update">
 </form>
 

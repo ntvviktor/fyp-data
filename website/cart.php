@@ -36,7 +36,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                 <ul>
                     <?php if ($isLoggedIn) { ?>
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="profile.php"><?php echo $_SESSION['username']; ?></a></li>
+                        <li><a href="viewprofile.php"><?php echo $_SESSION['username']; ?></a></li>
                         <li><a href="signout.php">Sign Out</a></li>
                         <li><a href="cart.php">Cart</a></li>
                     <?php } else { ?>

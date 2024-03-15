@@ -67,7 +67,7 @@ foreach ($on_sale_product_range as $id) {
 <body>
 <header>
     <div class="container">
-        <h1>FYP TITLE</h1>
+        <h1>Booklicious</h1>
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
@@ -75,7 +75,7 @@ foreach ($on_sale_product_range as $id) {
                     <li><a href="login.php">Login</a></li>
                     <li><a href="signup.php">Sign Up</a></li>
                 <?php } else { ?>
-                    <li><a href="profile.php"><?php echo $_SESSION['username']; ?></a></li>
+                    <li><a href="viewprofile.php"><?php echo $_SESSION['username']; ?></a></li>
                     <li><a href="signout.php">Sign Out</a></li>
                 <?php } ?>
                 <li><a href="cart.php">Cart</a></li>

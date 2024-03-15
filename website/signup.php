@@ -2,6 +2,9 @@
 include 'db.php';
 include 'class/user.php';
 
+// Start session
+session_start();
+
 // Handle form submission logic
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the register button is clicked
@@ -14,6 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Display success or error message based on registration result
         if ($registerResult === true) {
+            // Store username in session
+            $_SESSION['username'] = $_POST['username'];
             $registrationSuccess = "Registration successful!";
         } else {
             $registrationError = "Registration failed: " . $registerResult;
@@ -21,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
