@@ -30,62 +30,62 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile</title>
-    <link rel="stylesheet" href="css/profile.css"/>
+    <link rel="stylesheet" href="css/profile.css" />
 </head>
+
 <body>
-<header>
-    <div class="container">
-        <h1>FYP TITLE</h1>
-        <nav>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <?php if (!$isLoggedIn) { ?>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="signup.php">Sign Up</a></li>
-                <?php } else { ?>
-                    <li><a href="viewprofile.php"><?php echo $_SESSION['username']; ?></a></li>
-                    <li><a href="signout.php">Sign Out</a></li>
-                <?php } ?>
-                <li><a href="cart.php">Cart</a></li>
-            </ul>
-        </nav>
+    <?php include 'index_header.php' ?>
+    <?php
+    if (isset($message)) {
+        foreach ($message as $message) {
+            echo '
+        <div class="message" id= "messages"><span>' . $message . '</span>
+        </div>
+        ';
+        }
+    }
+    ?>
+
+    <h1>User Profile</h1>
+
+    <?php if (!empty($notification)) { ?>
+        <div class="notification"><?php echo $notification; ?></div>
+    <?php } ?>
+
+    <h2>Welcome, <?php echo $userData['username']; ?>!</h2>
+
+    <!-- Display user information -->
+    <div>
+        <p><strong>Username:</strong> <?php echo $userData['username']; ?></p>
+        <p><strong>Email:</strong> <?php echo $userData['email']; ?></p>
+        <p><strong>Full Name:</strong> <?php echo $userData['full_name']; ?></p>
+        <!-- Check if 'age' key exists before accessing it -->
+        <p><strong>Age:</strong> <?php echo isset($userDetails['age']) ? $userDetails['age'] : 'Empty'; ?></p>
+        <!-- Check if 'gender' key exists before accessing it -->
+        <p><strong>Gender:</strong> <?php echo isset($userDetails['gender']) ? $userDetails['gender'] : 'Empty'; ?></p>
+        <!-- Check if 'occupation' key exists before accessing it -->
+        <p><strong>Occupation:</strong> <?php echo isset($userDetails['occupation']) ? $userDetails['occupation'] : 'Empty'; ?></p>
+        <!-- Check if 'genre' key exists before accessing it -->
+        <p><strong>Genre:</strong> <?php echo isset($userDetails['genre']) ? $userDetails['genre'] : 'Empty'; ?></p>
+        <a href="profile.php">Edit Account</a>
+        <a href="detail.php">Edit Details</a>
     </div>
-</header>
 
-<h1>User Profile</h1>
+    <script>
+        setTimeout(() => {
+            const box = document.getElementById('messages');
 
-<?php if (!empty($notification)) { ?>
-    <div class="notification"><?php echo $notification; ?></div>
-<?php } ?>
-
-<h2>Welcome, <?php echo $userData['username']; ?>!</h2>
-
-<!-- Display user information -->
-<div>
-    <p><strong>Username:</strong> <?php echo $userData['username']; ?></p>
-    <p><strong>Email:</strong> <?php echo $userData['email']; ?></p>
-    <p><strong>Full Name:</strong> <?php echo $userData['full_name']; ?></p>
-    <!-- Check if 'age' key exists before accessing it -->
-    <p><strong>Age:</strong> <?php echo isset($userDetails['age']) ? $userDetails['age'] : 'Empty'; ?></p>
-    <!-- Check if 'gender' key exists before accessing it -->
-    <p><strong>Gender:</strong> <?php echo isset($userDetails['gender']) ? $userDetails['gender'] : 'Empty'; ?></p>
-    <!-- Check if 'occupation' key exists before accessing it -->
-    <p><strong>Occupation:</strong> <?php echo isset($userDetails['occupation']) ? $userDetails['occupation'] : 'Empty'; ?></p>
-    <!-- Check if 'genre' key exists before accessing it -->
-    <p><strong>Genre:</strong> <?php echo isset($userDetails['genre']) ? $userDetails['genre'] : 'Empty'; ?></p>
-    <a href="profile.php">Edit Account</a> 
-    <a href="detail.php">Edit Details</a>
-</div>
-
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <p>&copy; 2024 JunZ. All rights reserved.</p>
-    </div>
-</footer>
+            // 👇️ hides element (still takes up space on page)
+            box.style.display = 'none';
+        }, 8000);
+    </script>
+    <!-- Footer -->
+    <?php include 'index_footer.php'; ?>
 </body>
+
 </html>

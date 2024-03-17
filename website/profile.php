@@ -55,24 +55,17 @@ $conn->close();
     <link rel="stylesheet" href="css/profile.css"/>
 </head>
 <body>
-<header>
-    <div class="container">
-        <h1>FYP TITLE</h1>
-        <nav>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <?php if (!$isLoggedIn) { ?>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="signup.php">Sign Up</a></li>
-                <?php } else { ?>
-                    <li><a href="viewprofile.php"><?php echo $_SESSION['username']; ?></a></li>
-                    <li><a href="signout.php">Sign Out</a></li>
-                <?php } ?>
-                <li><a href="cart.php">Cart</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
+<?php include 'index_header.php' ?>
+    <?php
+    if (isset($message)) {
+        foreach ($message as $message) {
+            echo '
+        <div class="message" id= "messages"><span>' . $message . '</span>
+        </div>
+        ';
+        }
+    }
+    ?>
 
 <h1>User Profile</h1>
 
@@ -96,11 +89,15 @@ $conn->close();
     <input type="submit" value="Update">
 </form>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <p>&copy; 2024 JunZ. All rights reserved.</p>
-    </div>
-</footer>
+<script>
+        setTimeout(() => {
+            const box = document.getElementById('messages');
+
+            // 👇️ hides element (still takes up space on page)
+            box.style.display = 'none';
+        }, 8000);
+    </script>
+    <!-- Footer -->
+    <?php include 'index_footer.php'; ?>
 </body>
 </html>

@@ -1,9 +1,13 @@
 <?php
-include 'db.php';
-include 'class/user.php';
+session_start(); // Start session
 
-// Start session
-session_start();
+// Include the db.php file to reuse the database connection
+include_once 'db.php';
+
+// Check if the user is logged in
+$isLoggedIn = isset($_SESSION['username']); // Check if the session variable is set
+
+include 'class/user.php';
 
 // Handle form submission logic
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -13,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = new User($conn);
 
         // Process form data and register user
-        $registerResult = $user->register($_POST['fullname'], $_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password']);
+        $registerResult = $user->register($_POST['fullname'], $_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password'], $_POST['user_type']);
 
         // Display success or error message based on registration result
         if ($registerResult === true) {
@@ -27,28 +31,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FYP</title>
     <link rel="stylesheet" href="css/signup.css">
 </head>
+
 <body>
-    <header>
-        <div class="container">
-            <h1>JunZ</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="signup.php">Sign Up</a></li>
-                    <li><a href="cart.php">Cart</a></li>
-                </ul>
-            </nav>
+    <?php include 'index_header.php' ?>
+    <?php
+    if (isset($message)) {
+        foreach ($message as $message) {
+            echo '
+        <div class="message" id= "messages"><span>' . $message . '</span>
         </div>
-    </header>
+        ';
+        }
+    }
+    ?>
 
     <!-- Sign Up Form -->
     <section class="signup-section">
@@ -74,6 +79,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="confirm_password">Confirm Password:</label>
                     <input type="password" id="confirm_password" name="confirm_password" required>
                 </div>
+                <div class="form-group">
+                    <label for="user_type">User Type:</label>
+                    <select id="user_type" name="user_type" required>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
                 <button type="submit" name="register">Sign Up</button>
             </form>
             <br>
@@ -87,11 +99,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </section>
 
+    <script>
+        setTimeout(() => {
+            const box = document.getElementById('messages');
+
+            // 👇️ hides element (still takes up space on page)
+            box.style.display = 'none';
+        }, 8000);
+    </script>
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; <?php echo date("Y"); ?> JunZ. All rights reserved.</p>
-        </div>
-    </footer>
+    <?php include 'index_footer.php'; ?>
 </body>
+
 </html>

@@ -57,30 +57,24 @@ $conn->close();
     <link rel="stylesheet" href="css/profile.css"/>
 </head>
 <body>
-<header>
-    <div class="container">
-        <h1>FYP TITLE</h1>
-        <nav>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <?php if (!$isLoggedIn) { ?>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="signup.php">Sign Up</a></li>
-                <?php } else { ?>
-                    <li><a href="viewprofile.php"><?php echo $_SESSION['username']; ?></a></li>
-                    <li><a href="signout.php">Sign Out</a></li>
-                <?php } ?>
-                <li><a href="cart.php">Cart</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
+<?php include 'index_header.php' ?>
+    <?php
+    if (isset($message)) {
+        foreach ($message as $message) {
+            echo '
+        <div class="message" id= "messages"><span>' . $message . '</span>
+        </div>
+        ';
+        }
+    }
+    ?>
 
-<h1>Edit User Details</h1>
 
 <?php if (!empty($notification)) { ?>
     <div class="notification"><?php echo $notification; ?></div>
 <?php } ?>
+
+<h1>Edit User Details</h1>
 
 <!-- Edit Details Form -->
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">

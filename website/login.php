@@ -1,7 +1,9 @@
 <?php
+session_start(); // Start session
+
 include 'db.php';
 include 'class/user.php';
-
+$isLoggedIn = isset($_SESSION['username']); // Check if the session variable is set
 // Initialize error message variable
 $error = "";
 
@@ -21,29 +23,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FYP</title>
     <link rel="stylesheet" href="css/login.css">
 </head>
-<body>
-    <header>
-        <div class="container">
-            <h1>JunZ</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="signup.php">Sign Up</a></li>
-                    <li><a href="cart.php">Cart</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-   <!-- Login Form -->
-   <section class="login-section">
+<body>
+    <?php include 'index_header.php' ?>
+    <?php
+    if (isset($message)) {
+        foreach ($message as $message) {
+            echo '
+        <div class="message" id= "messages"><span>' . $message . '</span>
+        </div>
+        ';
+        }
+    }
+    ?>
+
+    <!-- Login Form -->
+    <section class="login-section">
         <div class="container">
             <form id="loginForm" action="" method="POST">
                 <div class="form-group">
@@ -61,11 +63,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </section>
-        <!-- Footer -->
-        <footer>
-        <div class="container">
-            <p>&copy; <?php echo date("Y"); ?> JunZ. All rights reserved.</p>
-        </div>
-    </footer>
+    <script>
+        setTimeout(() => {
+            const box = document.getElementById('messages');
+
+            // 👇️ hides element (still takes up space on page)
+            box.style.display = 'none';
+        }, 8000);
+    </script>
+    <!-- Footer -->
+    <?php include 'index_footer.php'; ?>
 </body>
+
 </html>

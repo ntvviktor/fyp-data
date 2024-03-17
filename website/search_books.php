@@ -18,12 +18,32 @@ if (!$isLoggedIn) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Page</title>
 
-    <!-- font awesome cdn link  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-    <!-- custom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .msg {
+            display: block;
+            width: 1200px;
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            z-index: 999;
+            text-align: left;
+            margin: 0 auto;
+        }
+
+        .msg p {
+            margin: 0;
+        }
+
+
+
         .search-form form {
             max-width: 1200px;
             margin: 30px auto;
@@ -60,9 +80,11 @@ if (!$isLoggedIn) {
             background-color: white;
             border: 1px solid #ddd;
             z-index: 999;
-            width: 100%;
+            width: 60%;
             display: none;
+            left: 15%;
         }
+
 
         #search_results li {
             list-style-type: none;
@@ -96,12 +118,12 @@ if (!$isLoggedIn) {
                 $search_box = filter_var($search_box, FILTER_SANITIZE_STRING);
                 $select_products = mysqli_query($conn, "SELECT * FROM `product` WHERE name LIKE '%$search_box%' OR author LIKE '%$search_box%' OR genre LIKE '%$search_box%'");
                 if (mysqli_num_rows($select_products) > 0) {
-                    echo '<h4>Search Result for "'.htmlspecialchars($search_box).'" is:</h4>';
+                    echo '<h4>Search Result for "' . htmlspecialchars($search_box) . '" is: </h4><br>';
                     while ($fetch_product = mysqli_fetch_assoc($select_products)) {
-                        echo '<p>Name: ' . htmlspecialchars($fetch_product['name']) . ', Price: ' . htmlspecialchars($fetch_product['price']) . '</p>';
+                        echo ' <p>Name: ' . htmlspecialchars($fetch_product['name']) . ', Price: ' . htmlspecialchars($fetch_product['price']) . '</p>';
                     }
                 } else {
-                    echo '<p class="empty">Could not find "'.htmlspecialchars($search_box).'"! </p>';
+                    echo '<p class="empty">Could not find "' . htmlspecialchars($search_box) . '"! </p>';
                 }
             } else {
                 echo '<p class="empty">Please enter a search term!</p>';
@@ -114,15 +136,17 @@ if (!$isLoggedIn) {
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $('#search_box').keyup(function(){
+        $(document).ready(function() {
+            $('#search_box').keyup(function() {
                 var query = $(this).val();
-                if(query != '') {
+                if (query != '') {
                     $.ajax({
                         url: 'search.php',
                         method: 'POST',
-                        data: {query: query},
-                        success: function(data){
+                        data: {
+                            query: query
+                        },
+                        success: function(data) {
                             $('#search_results').fadeIn();
                             $('#search_results').html(data);
                         }
@@ -131,7 +155,7 @@ if (!$isLoggedIn) {
                     $('#search_results').fadeOut();
                 }
             });
-            $(document).on('click', 'li', function(){
+            $(document).on('click', 'li', function() {
                 $('#search_box').val($(this).text());
                 $('#search_results').fadeOut();
             });
