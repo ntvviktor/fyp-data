@@ -14,79 +14,6 @@ body {
   min-height: 100vh;
 }
 
-/* Header Styles */
-header {
-  background-color: #333;
-  color: #fff;
-  padding: 1rem 0;
-  text-align: center;
-}
-
-header .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header h1 {
-  font-size: 2rem;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  justify-content: center; /* Center the navigation links */
-}
-
-nav ul li {
-  margin-right: 1rem;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #fff;
-}
-
-.container {
-  width: 80%; /* Adjust this value according to your layout */
-  margin: 0 auto; /* Center the container */
-}
-
-.search-bar {
-  width: 100%; /* Make the search bar take the full width of its container */
-  margin-bottom: 20px; /* Add some spacing below the search bar */
-}
-
-.search-bar input[type="text"],
-.search-bar button {
-  width: calc(
-    80% - 90px
-  ); /* Calculate the width of input and button to fit within the search bar */
-  padding: 10px; /* Add padding for better aesthetics */
-  margin-right: 10px; /* Add some spacing between input and button */
-  border: 1px solid #ccc; /* Add a border for better visibility */
-  border-radius: 5px; /* Add border-radius for rounded corners */
-}
-
-.search-bar button {
-  width: 100px; /* Set a fixed width for the button */
-  background-color: #555; /* Add background color */
-  color: #fff; /* Set text color */
-  border: none; /* Remove border */
-  border-radius: 5px; /* Add border-radius for rounded corners */
-  cursor: pointer; /* Change cursor to pointer on hover */
-}
-
-.search-bar button:hover {
-  background-color: #555; /* Darker background color on hover */
-}
-
-/* Main Content Styles */
-/* Style the signup section */
-.signup-section {
-  margin-top: 50px;
-}
-
 /* Style the signup container */
 .signup-section .container {
   width: 50%;
@@ -114,18 +41,19 @@ label {
 }
 
 /* Style the form inputs */
-input{
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
-
-/* Style the signup button */
 button[type="submit"] {
   width: 100%;
   padding: 10px;
-  background-color: #555;
+  background-color: #047dff;
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -134,13 +62,9 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #555;
+  background-color: #000607;
 }
-/* Footer Styles */
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 1rem 0;
-  text-align: center;
-  margin-top: auto; /* Push the footer to the bottom */
+
+p a:hover {
+  text-decoration: underline;
 }

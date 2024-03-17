@@ -9,7 +9,7 @@ class User {
     }
 
     public function login($username, $password) {
-        $sql = "SELECT * FROM user WHERE username = ?";
+        $sql = "SELECT id, username, password, user_type FROM user WHERE username = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $username);
         $stmt->execute();
@@ -21,18 +21,24 @@ class User {
                 session_start();
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
+                $_SESSION['user_type'] = $user['user_type'];
     
-                // Redirect to index.php
-                header("Location: index.php");
+                // Redirect based on user type
+                if ($user['user_type'] == 'admin') {
+                    header("Location: admin.php");
+                } else {
+                    header("Location: index.php");
+                }
                 exit;
             }
         }
         return false;
     }
+    
 
-    public function register($fullname, $username, $email, $password, $confirm_password) {
+    public function register($fullname, $username, $email, $password, $confirm_password, $user_type) {
         // Validate form data
-        if (empty($fullname) || empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+        if (empty($fullname) || empty($username) || empty($email) || empty($password) || empty($confirm_password) || empty($user_type)) {
             echo "All fields are required.";
             return false;
         }
@@ -58,9 +64,9 @@ class User {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
         // Insert user data into the database
-        $sql = "INSERT INTO user (full_name, username, email, password) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO user (full_name, username, email, password, user_type) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ssss", $fullname, $username, $email, $hashedPassword);
+        $stmt->bind_param("sssss", $fullname, $username, $email, $hashedPassword, $user_type);
         if ($stmt->execute()) {
             // Close the statement
             $stmt->close();
@@ -75,6 +81,7 @@ class User {
             return false; // Failed to register user
         }
     }
+    
     public function submitDetails($username) {
         // Check if the form is submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
